@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Flashcards2.Views.NewFlashcardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extwpf="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:local="clr-namespace:Flashcards2.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FocusManager.FocusedElement="{Binding ElementName=questionTextBox}"
+             mc:Ignorable="d" 
+             DataContextChanged="UserControl_DataContextChanged"
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextFieldTextBox}">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
+            <Setter Property="materialDesign:HintAssist.FloatingScale" Value="1" />
+            <Setter Property="materialDesign:HintAssist.Background" Value="Transparent" />
+            <Setter Property="materialDesign:TextFieldAssist.HasFilledTextField" Value="False"  />
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="MaxHeight" Value="600" />
+
+        </Style>
+    </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F2" Command="{Binding CreateFlashcardCommand}" />
+    </UserControl.InputBindings>
+    <Grid Width="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Name="questionTextBox" materialDesign:HintAssist.Hint="Frage" TabIndex="0" Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}" MinHeight="80" MaxHeight="100" />
+        <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Antwort" Text="{Binding Answer, UpdateSourceTrigger=PropertyChanged}" TabIndex="1" />
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Abbrechen" IsCancel="True" Command="{Binding CancelCommand}"/>
+            <Button Content="Speichern (F2)" Command="{Binding CreateFlashcardCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

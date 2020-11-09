@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Flashcards2.Resources.DataTemplates"
+                    xmlns:DataLayer="clr-namespace:Flashcards2.DataLayer">
+    
+    
+
+</ResourceDictionary>

@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Flashcards2.Views.TopicsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Flashcards2.Views"
+        mc:Ignorable="d"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        >
+
+
+    <materialDesign:DialogHost>
+        <GroupBox Header="Themen">
+            <DockPanel>
+                <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" DockPanel.Dock="Top">
+                    Neues Thema
+                    <Button.CommandParameter>
+                        <local:TextInputDialog OKCommand="{Binding CreateTopicCommand}" OkCommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                    </Button.CommandParameter>
+                </Button>
+                <DataGrid  IsReadOnly="True" ItemsSource="{Binding Topics}" AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="200" SortDirection="Ascending" SortMemberPath="Title" Header="Thema" Binding="{Binding Title}" />
+                        <DataGridTextColumn Header="Erstellt" Binding="{Binding Path=CreatedAt, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                        <DataGridTextColumn Header="letzte Änderung" Binding="{Binding Path=UpdatedAt, StringFormat={}{0:dd.MM.yyyy HH:mm}}" />
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                        <Button Margin="2 0 2 0" Height="15" Padding="0" Command="{Binding DataContext.EditTopicCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding TopicId}" Content="Starten" Style="{DynamicResource MaterialDesignFlatButton}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                        <Button Command="{Binding DataContext.DeleteTopicCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding TopicId}" Style="{StaticResource DeleteButton}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </DockPanel>
+        </GroupBox>
+    </materialDesign:DialogHost>
+
+</UserControl>
